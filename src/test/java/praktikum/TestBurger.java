@@ -1,10 +1,23 @@
 package praktikum;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TestBurger {
+    @Mock
+    Bun bun;
+    @Mock
+    Ingredient meat;
+    @Mock
+    Ingredient salad;
+    @Mock
+    Ingredient cheeseSauce;
 
     @Test
     public void testBurgerAddIngredient() {
@@ -48,7 +61,7 @@ public class TestBurger {
     @Test
     public void testPriceWithoutIngredients() {
         Burger burger = new Burger();
-        Bun bun = new Bun("Super Bun", 1000);
+        Mockito.when(bun.getPrice()).thenReturn(1000f);
         burger.setBuns(bun);
 
         float price = burger.getPrice();
@@ -72,11 +85,11 @@ public class TestBurger {
     @Test
     public void testBurgerGetPrice() {
         Burger burger = new Burger();
-        Bun bun = new Bun("Super Bun", 1000);
+        Mockito.when(bun.getPrice()).thenReturn(1000f);
         burger.setBuns(bun);
-        Ingredient meat = new Ingredient(IngredientType.FILLING, "meat", 50);
-        Ingredient salad = new Ingredient(IngredientType.FILLING, "salad", -20);
-        Ingredient cheeseSauce = new Ingredient(IngredientType.SAUCE, "cheeseSauce", 10);
+        Mockito.when(meat.getPrice()).thenReturn(50f);
+        Mockito.when(salad.getPrice()).thenReturn(-20f);
+        Mockito.when(cheeseSauce.getPrice()).thenReturn(10f);
         burger.addIngredient(meat);
         burger.addIngredient(salad);
         burger.addIngredient(cheeseSauce);
